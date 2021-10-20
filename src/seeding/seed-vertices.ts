@@ -63,5 +63,5 @@ export const seedVertices = async ({
       .property(cardinality.single, "lon", vertex.lon)
       .iterate();
   }
-  console.log("Done add vertices");
+  console.log("Done adding vertices");
 };
