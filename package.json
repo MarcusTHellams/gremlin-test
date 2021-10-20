@@ -1,0 +1,32 @@
+{
+  "name": "gremlin-test",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "author": "Marcus T. Hellams",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
+    "@types/gremlin": "^3.5.0",
+    "@types/node": "^16.11.1",
+    "@types/papaparse": "^5.3.0",
+    "rimraf": "^3.0.2",
+    "ts-node": "^10.3.0",
+    "tsc-watch": "^4.5.0",
+    "typescript": "^4.4.4"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prebuild": "rimraf dist",
+    "start": "ts-node src/index.ts",
+    "start:debug": "node --inspect -r ts-node/register src/index.ts",
+    "dev": "tsc-watch --onSuccess \"node dist/index.js\"",
+    "dev:debug": "tsc-watch --onSuccess \"node --inspect dist/index.js\"",
+    "seed": "ts-node src/seeding/index.ts"
+  },
+  "dependencies": {
+    "fs-extra": "^10.0.0",
+    "gremlin": "^3.5.1",
+    "papaparse": "^5.3.1"
+  }
+}
