@@ -3,9 +3,60 @@ import { CallbackParams } from "./utils/withGremlinPromise";
 export const walkingTheGraph = async ({
   g,
   process: {
-    statics: { values },
+    P,
+    t,
+    withOptions,
+    cardinality: { single },
+    statics: { values, out, valueMap, as, unfold, select, elementMap },
   },
 }: CallbackParams) => {
+  out;
+  as;
+  withOptions;
+  unfold;
+  single && undefined;
+  P;
+  elementMap;
+
+  let hh = await g
+    .V()
+    .has("code", "LGW")
+    .as("marcus")
+    .select("marcus")
+    .elementMap()
+    .next();
+
+  let ff = await g
+    .V()
+    .has("code", "DFW")
+    .as("from")
+    .out()
+    .has("region", "US-CA")
+    .as("to")
+    .select("from", "to")
+    .by(elementMap())
+    .toList();
+
+  let r = g
+    .V()
+    .has("code", "DFW")
+    .as("dfw")
+    .addV()
+    .property(t.label, select("dfw").label())
+    .as("new")
+    .sideEffect(
+      select("dfw")
+        .properties()
+        .as("dfwprops")
+        .select("new")
+        .property(select("dfwprops").key(), select("dfwprops").value())
+    );
+  r.property(single, "code", "BWI");
+  r.property(single, "place", "Marcus");
+
+  let rs = await r.valueMap().next();
+  rs;
+
   // Where can I fly to from Austin?
   let result: any;
   result = await g
@@ -173,5 +224,14 @@ export const walkingTheGraph = async ({
 
   // 3.3.4. Does an edge exist between two vertices?
 
-  debugger;
+  result = await g
+    .V()
+    .has("type", "airport")
+    .limit(10)
+    .as("a", "b", "c")
+    .select("a", "b", "c")
+    .by(valueMap(true))
+    .toList();
+
+  // debugger;
 };
