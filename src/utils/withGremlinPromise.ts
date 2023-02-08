@@ -46,7 +46,7 @@ const {
   //key,
   //label,
   limit,
-  //local,
+  local,
   loops,
   map,
   match,
@@ -99,7 +99,7 @@ const {
   order: { desc, incr, asc, shuffle, decr },
   cardinality: { single, set, list },
   column: { keys, values },
-  scope: { global, local },
+  scope: { global, /* local */ },
   pop: { all, first, last, mixed },
   operator,
   P: {
@@ -138,10 +138,10 @@ export interface CallbackParams {
   process: typeof gremlin.process;
 }
 
-export type Args = [...unknown[]];
+export type Args = [...any[]];
 
 export const withGremlinPromise =
-  (func: (obj: CallbackParams, ...args: Args) => Promise<unknown>) =>
+  <T>(func: (obj: CallbackParams, ...args: Args) => Promise<T>) =>
   (...args: Args) => {
     return func({ g, process: gremlin.process }, ...args);
   };

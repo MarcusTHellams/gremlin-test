@@ -40,6 +40,7 @@ export const seedVertices = async ({
   await asyncForEach<Airport>(data, async (airport) => {
     try {
       await addVertex(airport);
+      /* c8 ignore next 3 */
     } catch (error) {
       console.log("error: ", error);
     }
@@ -64,4 +65,5 @@ export const seedVertices = async ({
       .iterate();
   }
   console.log("Done adding vertices");
+  return "Done adding vertices";
 };
