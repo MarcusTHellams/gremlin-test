@@ -4,3 +4,7 @@
 //   .drop()
 // 	.valueMap(true);
 
+/*
+  g.V('SomeDataId').emit().repeat(out()).fold().unfold().drop()
+*/
+
